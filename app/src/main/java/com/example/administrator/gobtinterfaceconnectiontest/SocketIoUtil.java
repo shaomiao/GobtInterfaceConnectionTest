@@ -19,28 +19,37 @@ import io.socket.client.Socket;
 public class SocketIoUtil {
     private final static String TAG = "socketio";
 
-    public static void emitObject(Socket mSocket,String socketname,Map<String, Object> map) throws JSONException {
+    public static void emitObject(Socket mSocket, String socketname, Map<String, Object> map) throws Exception {
         if (map != null) {
             JSONObject emitObj = new JSONObject();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                emitObj.put(entry.getKey(),entry.getValue());
+                emitObj.put(entry.getKey(), entry.getValue());
             }
             mSocket.emit(socketname, emitObj);
         }
     }
-    public static void emitObject(Socket mSocket,Map<String, Map<String, Object>> map) throws JSONException {
+
+    public static void emitObject(Socket mSocket, Map<String, Map<String, Object>> map) throws Exception {
         if (map != null) {
             JSONObject emitObj = new JSONObject();
             for (Map.Entry<String, Map<String, Object>> entry : map.entrySet()) {
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                for(Map.Entry<String, Object> entry2 : entry.getValue().entrySet()){
-                    emitObj.put(entry2.getKey(),entry2.getValue());
+                if (entry.getValue() != null) {
+                    for (Map.Entry<String, Object> entry2 : entry.getValue().entrySet()) {
+                        emitObj.put(entry2.getKey(), entry2.getValue());
+                    }
                 }
                 mSocket.emit(entry.getKey(), emitObj);
             }
+
         }
     }
+
+    public static void emitObject(Socket mSocket, String socketname) {
+        mSocket.emit(socketname, "");
+    }
+
     /**
      * @param mSocket
      * @param socketname
@@ -81,7 +90,5 @@ public class SocketIoUtil {
         }
 
     }
-    public static void emitObject(Socket mSocket, String socketname) {
-        mSocket.emit(socketname, "");
-    }
+
 }

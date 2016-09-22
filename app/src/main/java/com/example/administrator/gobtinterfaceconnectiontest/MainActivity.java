@@ -67,11 +67,12 @@ public class MainActivity extends Activity {
         Map<String, Object> map1 = new HashMap<>();
         map1.put("areaID", 2);
         map.put("getStretch", map1);
+        map.put("getFastFoodList",null);
         try {
-            SocketIoUtil.emitObject(mSocket,"getFastFoodList");
-            SocketIoUtil.emitObject(mSocket,"getStretch", map1);
+            //SocketIoUtil.emitObject(mSocket,"getFastFoodList");
+            SocketIoUtil.emitObject(mSocket, map);
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //SocketIoUtil.emitObject("getSretch",map1);
