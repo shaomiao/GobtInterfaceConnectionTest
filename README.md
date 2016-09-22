@@ -1,2 +1,2 @@
 # GobtInterfaceConnectionTest
-java socketio connecton test demo
+android socketio connecton test demo
